@@ -58,6 +58,10 @@ export function dashboardDataUrl(moduleUrl = import.meta.url) {
   return new URL('./data.json', moduleUrl).href;
 }
 
+export function normalizeDiagnostics(value) {
+  return Array.isArray(value) ? value : [];
+}
+
 export function filterPages(pages, filters) {
   const query = filters.query.trim().toLocaleLowerCase('ko-KR');
   return pages.filter((page) => {
@@ -171,6 +175,7 @@ async function initialize() {
   if (!response.ok) throw new Error(`데이터 요청 실패 (${response.status})`);
   const snapshot = await response.json();
   if (snapshot.schemaVersion !== 1) throw new Error('지원하지 않는 데이터 버전입니다.');
+  const diagnostics = normalizeDiagnostics(snapshot.diagnostics);
 
   const form = document.querySelector('#filters');
   const rows = document.querySelector('#page-rows');
@@ -186,9 +191,9 @@ async function initialize() {
     timeStyle: 'short',
   }).format(new Date(snapshot.generatedAt));
 
-  if (snapshot.diagnostics.length > 0) {
+  if (diagnostics.length > 0) {
     document.querySelector('#diagnostics').hidden = false;
-    document.querySelector('#diagnostics-list').innerHTML = snapshot.diagnostics
+    document.querySelector('#diagnostics-list').innerHTML = diagnostics
       .map((item) => `<li>${escapeHtml(item)}</li>`)
       .join('');
   }
@@ -234,4 +239,5 @@ globalThis.ProgressDashboard = {
   stageLabel,
   axisLabel,
   dashboardDataUrl,
+  normalizeDiagnostics,
 };
