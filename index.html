@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>잠깐살래 개발 진척도</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">4QUADVERSE · PRODUCT DELIVERY</p>
+          <h1>개발 진척도</h1>
+          <p class="hero-copy">기획·디자인·API·구현 상태를 한눈에 확인합니다.</p>
+        </div>
+        <div class="freshness" aria-live="polite">
+          <span class="pulse" aria-hidden="true"></span>
+          <div>
+            <strong id="freshness-label">데이터 확인 중</strong>
+            <span id="generated-at">잠시만 기다려 주세요</span>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section aria-labelledby="summary-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">OVERVIEW</p>
+              <h2 id="summary-title">전체 현황</h2>
+            </div>
+            <p id="review-scope" class="section-note"></p>
+          </div>
+          <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
+        </section>
+
+        <section id="diagnostics" class="diagnostics" aria-labelledby="diagnostics-title" hidden>
+          <h2 id="diagnostics-title">데이터 확인 필요</h2>
+          <ul id="diagnostics-list"></ul>
+        </section>
+
+        <section class="workspace" aria-labelledby="pages-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">PAGE MATRIX</p>
+              <h2 id="pages-title">페이지별 진행 상황</h2>
+            </div>
+            <p id="result-count" class="section-note" aria-live="polite"></p>
+          </div>
+
+          <form id="filters" class="filter-bar">
+            <label class="search-field">
+              <span>페이지 검색</span>
+              <input id="query" name="query" type="search" placeholder="페이지 이름을 입력하세요" />
+            </label>
+            <label>
+              <span>영역</span>
+              <select id="area" name="area">
+                <option value="all">전체</option>
+                <option value="common">공통</option>
+                <option value="guest">게스트</option>
+                <option value="host">호스트</option>
+              </select>
+            </label>
+            <label>
+              <span>현재 단계</span>
+              <select id="stage" name="stage">
+                <option value="all">전체</option>
+                <option value="blocked">중단</option>
+                <option value="not_started">미착수</option>
+                <option value="ui_only">UI만</option>
+                <option value="ui_mock">UI + 목업</option>
+                <option value="api_connected">API 연결</option>
+                <option value="verified">검증 완료</option>
+              </select>
+            </label>
+            <label>
+              <span>기획</span>
+              <select id="planning" name="planning">
+                <option value="all">전체</option>
+                <option value="complete">구성 완료</option>
+                <option value="partial">일부 구성</option>
+                <option value="missing">없음</option>
+              </select>
+            </label>
+            <label>
+              <span>디자인</span>
+              <select id="design" name="design">
+                <option value="all">전체</option>
+                <option value="complete">이미지 완비</option>
+                <option value="partial">일부 누락</option>
+                <option value="missing">매핑 없음</option>
+              </select>
+            </label>
+            <label>
+              <span>API</span>
+              <select id="api" name="api">
+                <option value="all">전체</option>
+                <option value="complete">완전 연결</option>
+                <option value="partial">부분 연결</option>
+                <option value="mock">목업</option>
+                <option value="declared">계약만 존재</option>
+                <option value="missing">없음</option>
+              </select>
+            </label>
+            <label>
+              <span>정렬</span>
+              <select id="sort" name="sort">
+                <option value="risk_desc">위험도 높은 순</option>
+                <option value="progress_desc">진행률 높은 순</option>
+                <option value="updated_desc">최근 갱신 순</option>
+                <option value="name">이름 순</option>
+              </select>
+            </label>
+          </form>
+
+          <div class="table-shell">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">페이지</th>
+                  <th scope="col">진행도</th>
+                  <th scope="col">기획</th>
+                  <th scope="col">디자인</th>
+                  <th scope="col">API</th>
+                  <th scope="col">현재 진행 상황</th>
+                  <th scope="col">특이사항</th>
+                </tr>
+              </thead>
+              <tbody id="page-rows"></tbody>
+            </table>
+            <div id="empty-state" class="empty-state" hidden>
+              <strong>조건에 맞는 페이지가 없습니다.</strong>
+              <span>필터나 검색어를 변경해 주세요.</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="comments" class="comments" aria-labelledby="comments-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">TEAM FEEDBACK</p>
+              <h2 id="comments-title">의견과 확인사항</h2>
+            </div>
+            <p class="section-note">GitHub 계정으로 댓글을 남길 수 있습니다.</p>
+          </div>
+          <div class="comments-panel">
+            <script
+              src="https://giscus.app/client.js"
+              data-repo="mercuryPark/jam-kan-stay-progress"
+              data-repo-id="R_kgDOUe0f6Q"
+              data-category="General"
+              data-category-id="DIC_kwDOUe0f6c4DFz02"
+              data-mapping="specific"
+              data-term="development-progress"
+              data-strict="1"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="top"
+              data-theme="light"
+              data-lang="ko"
+              data-loading="lazy"
+              crossorigin="anonymous"
+              async
+            ></script>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="page-dialog" class="page-dialog">
+      <div class="dialog-head">
+        <div>
+          <span id="dialog-area" class="area-label"></span>
+          <h2 id="dialog-title"></h2>
+        </div>
+        <button id="dialog-close" class="icon-button" type="button" aria-label="닫기">×</button>
+      </div>
+      <div id="dialog-body"></div>
+    </dialog>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
